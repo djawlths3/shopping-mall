@@ -14,7 +14,7 @@ import com.cafe24.config.web.MVCConfig;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.cafe24.mysite.controller"})
+@ComponentScan({"com.cafe24.shopping.controller"})
 @Import({MVCConfig.class})
 public class WebConfig{
 	

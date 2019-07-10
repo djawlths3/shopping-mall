@@ -66,4 +66,9 @@ public class UserVo {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
 				+ gender + ", joinDate=" + joinDate + "]";
 	}
+
+	public Object getNo2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

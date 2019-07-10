@@ -28,6 +28,9 @@ public class UserDao {
 		return sqlSession.selectOne("user.getByEmail", email);
 	}
 
-
+	public Boolean set(UserVo vo) {
+		int cnt = sqlSession.insert("user.insert",vo);
+		return 1==cnt;
+	}
 
 }
