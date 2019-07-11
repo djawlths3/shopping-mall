@@ -7,68 +7,111 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UserVo {
 	private Long no;
 	@NotEmpty
-	@Length(min=2,max=8)
-	private String name;
-	
+	@Length(min = 2, max = 8)
+	private String id;
 	@NotEmpty
 	@Email
 	private String email;
+	@NotEmpty
 	private String password;
-	private String gender;
+	private String name;
 	private String joinDate;
-	
+	private String address;
+	private String addressDetail;
+	private String phoneNumber;
+	private String grade;
+	private String certification;
+
 	public UserVo() {
+
 	}
-	
-	public  UserVo(String email, String password) {
-		this.email = email;
-		this.password = password;
+
+	public String getCertification() {
+		return certification;
 	}
-	
+
+	public void setCertification(String certification) {
+		this.certification = certification;
+	}
+
 	public Long getNo() {
 		return no;
 	}
+
 	public void setNo(Long no) {
 		this.no = no;
 	}
-	public String getName() {
-		return name;
+
+	public String getId() {
+		return id;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setId(String id) {
+		this.id = id;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getGender() {
-		return gender;
+
+	public String getName() {
+		return name;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 	public String getJoinDate() {
 		return joinDate;
 	}
+
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
-	@Override
-	public String toString() {
-		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + ", joinDate=" + joinDate + "]";
+
+	public String getAddress() {
+		return address;
 	}
 
-	public Object getNo2() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setAddress(String address) {
+		this.address = address;
 	}
+
+	public String getAddressDetail() {
+		return addressDetail;
+	}
+
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
 }
