@@ -13,15 +13,12 @@ public class UserService {
 
 	
 
-	public UserVo addUser(UserVo joinVo) {
-		UserVo vo = new UserVo();
-		vo.setNo(1L);
-		vo.setId(joinVo.getId());
-		vo.setAddress(joinVo.getAddress());
-		vo.setAddressDetail(joinVo.getAddressDetail());
-		vo.setPassword(joinVo.getPassword());
-		vo.setName(joinVo.getName());
-		return vo;
+	public UserVo addUser(UserVo userVo) {
+		Boolean tf = userDao.insert(userVo);
+		if( !tf ) {
+			return null;
+		}
+		return userVo;
 	}
 
 
@@ -40,6 +37,13 @@ public class UserService {
 
 	public Boolean findPw(UserVo userVo) {
 		return true;
+	}
+
+
+
+	public Boolean remove() {
+		Boolean tf = userDao.delete();
+		return tf;
 	}
 
 	

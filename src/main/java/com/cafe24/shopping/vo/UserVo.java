@@ -4,14 +4,14 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.cafe24.shopping.validator.constraint.ValidId;
 import com.cafe24.shopping.validator.constraint.ValidPassword;
 import com.cafe24.shopping.validator.constraint.ValidPhoneNumber;
 
 public class UserVo {
 	private Long no;
 	
-	@NotEmpty
-	@Length(min = 2, max = 12)
+	@ValidId
 	private String id;
 	
 	@NotEmpty
