@@ -13,6 +13,6 @@ import com.cafe24.config.web.MessageConfig;
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan({"com.cafe24.shopping.controller"})
-@Import({TestMVCConfig.class, FileuploadConfig.class})
+@Import({TestMVCConfig.class, FileuploadConfig.class, MessageConfig.class, SwaggerConfig.class})
 public class TestWebConfig {
 }
