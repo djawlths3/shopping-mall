@@ -33,6 +33,11 @@ public class ProductService {
 		return li;
 	}
 
+	public Boolean productModify(ProductVo productVo) {
+		Boolean tf = productDao.update(productVo);
+		return tf;
+	}
+
 
 		
 	

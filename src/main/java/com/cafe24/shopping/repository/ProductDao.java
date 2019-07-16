@@ -41,6 +41,10 @@ public class ProductDao {
 	public List selectDetail(ProductVo productVo) {	
 		return sqlSession.selectList("product.selectDetail", productVo);
 	}
+
+	public Boolean update(ProductVo productVo) {
+		return (sqlSession.update("product.update", productVo) > 0);
+	}
 	
 	
 	

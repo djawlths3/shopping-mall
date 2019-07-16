@@ -44,5 +44,10 @@ public class ProductController {
 		return JSONResult.success(li);
 	}
 	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public JSONResult productModify(@RequestBody ProductVo productVo) {
+		Boolean tf = productService.productModify(productVo);
+		return JSONResult.success(tf);
+	}
 
 }

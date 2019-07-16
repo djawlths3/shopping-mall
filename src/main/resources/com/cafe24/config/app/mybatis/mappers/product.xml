@@ -21,9 +21,13 @@
 		]]>
 	</insert>
 	<!-- 상품리스트 -->
-	<select id="selectList" parameterType="productvo" resultType="productvo">
-		select a.product_no as product, a.product_name as productName, a.price, a.product_date as productDate, a.product_etc as productEtc, b.category_name as categoryName, a.category_no as categoryNo  
-		from product a , category b
+	<select id="selectList" parameterType="productvo"
+		resultType="productvo">
+		select a.product_no as product, a.product_name as productName,
+		a.price, a.product_date as productDate, a.product_etc as productEtc,
+		b.category_name as categoryName, a.category_no as categoryNo
+		from
+		product a , category b
 		where a.category_no = b.category_no
 		<if test="productName != null">
 			and a.product_name like CONCAT('%',#{productName},'%')
@@ -32,24 +36,46 @@
 			and a.category_no = #{categoryNo}
 		</if>
 		<if test="productSort == 'priceD'">
-			order by a.price desc		
+			order by a.price desc
 		</if>
 		<if test="productSort == 'priceU'">
-			order by a.price asc		
+			order by a.price asc
 		</if>
 		<if test="productSort == 'nameD'">
-			order by a.product_name desc		
+			order by a.product_name desc
 		</if>
 		<if test="productSort == 'nameU'">
-			order by a.product_name asc		
+			order by a.product_name asc
 		</if>
 	</select>
-	
-	<select id="selectDetail" parameterType="productvo" resultType="productvo">
+
+	<select id="selectDetail" parameterType="productvo"
+		resultType="productvo">
 		<![CDATA[
-			select a.product_no as product, a.product_name as productName, a.price, a.product_date as productDate, 
+			select a.product_no as productNo, a.product_name as productName, a.price, a.product_date as productDate, 
 			a.product_etc as productEtc, b.size, b.color, b.quantity		
 			from product a, stock b where a.product_no = b.product_no and a.product_no = #{productNo}
 		]]>
 	</select>
+
+	<!-- 상품정보 수정 -->
+	<update id="update" parameterType="productvo">
+		<![CDATA[
+			update product a inner join stock b on a.product_no = b.product_no
+			set a.product_name = #{productName}
+		]]>
+		<if test="price != null">
+			, a.price = #{price}
+		</if>
+		<if test="productEtc != null">
+			, a.product_etc = #{productEtc}
+		</if>
+		<if test="size != null">
+			, b.size = #{size}
+		</if>
+		<if test="color != null">
+			, b.color = #{color}
+		</if>
+		where a.product_no = #{productNo}
+	</update>
 </mapper>

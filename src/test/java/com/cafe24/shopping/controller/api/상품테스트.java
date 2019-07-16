@@ -93,7 +93,7 @@ public class 상품테스트 {
 		.andExpect(jsonPath("$.result",is("success")));	
 		
 		// 카테고리 별 검색
-		vo.setCategoryNo(2);
+		vo.setCategoryNo(1);
 		resultAction = mockMvc.perform(post("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
@@ -104,6 +104,16 @@ public class 상품테스트 {
 	public void 테스트04_상품상세정보() throws Exception {	
 		vo.setProductNo(4);
 		ResultActions resultAction = mockMvc.perform(post("/api/product/detail").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("success")));	
+		
+	}
+	
+	@Test
+	public void 테스트05_상품수정() throws Exception {	
+		//테스트 못함 여기부터 시작
+		vo.setProductNo(4);
+		ResultActions resultAction = mockMvc.perform(post("/api/product/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 		
