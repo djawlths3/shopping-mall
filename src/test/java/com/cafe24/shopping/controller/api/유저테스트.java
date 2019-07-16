@@ -9,9 +9,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.hamcrest.core.IsNot;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.mockito.internal.matchers.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.cafe24.config.web.TestWebConfig;
 import com.cafe24.shopping.config.AppConfig;
 import com.cafe24.shopping.vo.UserVo;
+import com.cafe24.util.JsonTrans;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -35,6 +38,7 @@ import com.google.gson.JsonParser;;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {AppConfig.class, TestWebConfig.class})
 @WebAppConfiguration
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class 유저테스트 {
 	private MockMvc mockMvc;
 	private UserVo vo = new UserVo();
@@ -44,7 +48,7 @@ public class 유저테스트 {
 	
 	@Before	
 	public void setup() {
-		vo = new UserVo();
+		// vo = new UserVo();
 		vo.setId("djawlths4");
 		vo.setPassword("A1a4!#56789");
 		vo.setName("엄기윤");
@@ -55,47 +59,96 @@ public class 유저테스트 {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
-	@Ignore
+
 	@Test
-	public void 유저디비삭제() throws Exception {
-		mockMvc.perform(post("/api/user/removeAll").contentType(MediaType.APPLICATION_JSON));
-	}
-	
-	@Ignore
-	@Test
-	public void 아이디체크() throws Exception{
-		//아이디 정상
-		ResultActions resultAction = mockMvc.perform(post("/api/user/check").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
-		resultAction.andExpect(status().isOk())
-		.andDo(print());
-		//아이디 비정상
-		vo.setPassword("A1a456789");
-		resultAction = mockMvc.perform(post("/api/user/check").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
-		resultAction.andExpect(status().isBadRequest())
-		.andDo(print());	
+	public void 테스트01_유저디비삭제() throws Exception {
+		mockMvc.perform(post("/api/user/removeAll").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
 	
 
 	@Test
-	public void 회원가입테스트() throws Exception {	
+	public void 테스트02_회원가입테스트() throws Exception {	
+		//잘못된 아이디(길이부족)
+		vo.setId("a");
 		ResultActions resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
+		//잘못된 아이디(특수문자)
+		vo.setId("!@$a");
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
+		
+		//잘못된 비밀번호(길이부족)
+		setup();
+		vo.setPassword("12345");
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
+		//잘못된 비밀번호(특수문자 없음)
+		vo.setPassword("12345abced");
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
 
-//		resultAction.andExpect(status().isOk()).andDo(print())
-//		.andExpect(jsonPath("$.data.name",is(vo.getName())))
-//		.andExpect(jsonPath("$.data.password",is(vo.getPassword())));
+		// 잘못된 email(@없음)
+		setup();
+		vo.setEmail("abcd.com");
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
+
+
+		// 잘못된 핸드폰 정보(문자포함)
+		setup();
+		vo.setPhoneNumber("12345ㅁ6782");
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
+		// 잘못된 핸드폰 정보(길이부족)
+		vo.setPhoneNumber("010955904");
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
+		// 잘못된 핸드폰 정보(길이초과)
+		vo.setPhoneNumber("0109559048448");
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
 		
-		//회원 가입후 가입한 회원의 번호 세팅
+		//회원가입 성공
+		setup();
+		resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		MvcResult result = resultAction.andExpect(status().isOk())
-				.andDo(print())
-				.andExpect(jsonPath("$.data.name",is(vo.getName())))
-				.andReturn();
-		
-		String jsonString = result.getResponse().getContentAsString();
-		JsonParser parser = new JsonParser();
-		JsonElement element = parser.parse(jsonString);
-		JsonObject elementData = (JsonObject)element.getAsJsonObject().get("data");
+						.andDo(print())
+						.andExpect(jsonPath("$.data.id",is(vo.getId())))
+						.andReturn();
+		//회원 가입후 가입한 회원의 번호 세팅
+		JsonObject elementData = JsonTrans.JsonToObject(result);
 		vo.setNo(elementData.get("no").getAsLong());
+		
 	}
+	
+
+	@Test
+	public void 테스트03_아이디중복체크() throws Exception{
+		//중복되는 아이디	
+		ResultActions resultAction = mockMvc.perform(post("/api/user/checkId").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("fail")));
+		
+		//중복 안 되는 아이디
+		vo.setId("ddddsass");
+		resultAction = mockMvc.perform(post("/api/user/checkId").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result",is("success")));
+		
+	}
+	
+
+
 	
 	@Ignore
 	@Test

@@ -44,10 +44,10 @@
 			where no = #{no}
 	</update>
 	
-	<select id="getByEmail" parameterType="string" resultType="uservo">
+	<select id="checkId" parameterType="string" resultType="uservo">
 		<![CDATA[
-			select no, name, email, password, gender, join_date as joinDate from user 
-			where email = #{email}
+			select  member_no as memberNo, id, name, email, address, address_detail as addressDetail, phone_number as phoneNumber , grade, join_date as joinDate from user 
+			where id = #{id}
 		]]>
 	</select>
 </mapper>

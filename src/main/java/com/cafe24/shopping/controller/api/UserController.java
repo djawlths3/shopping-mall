@@ -78,10 +78,12 @@ public class UserController {
 		return JSONResult.success(tf);
 	}
 
-	@RequestMapping(value = "/check", method = RequestMethod.POST)
-	public ResponseEntity<JSONResult> check(@RequestBody @Valid UserVo userVo) {
-		
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(null));
+	@RequestMapping(value = "/checkId", method = RequestMethod.POST)
+	public JSONResult checkId(@RequestBody @Valid UserVo userVo) {
+		if (userService.checkId(userVo)) {
+			return JSONResult.success("사용가능한 아이디 입니다.");
+		}
+		return JSONResult.fail("중복되는 아이디가 있습니다.");
 	}
 	
 	@RequestMapping(value = "/removeAll", method = RequestMethod.POST)

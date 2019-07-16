@@ -46,5 +46,15 @@ public class UserService {
 		return tf;
 	}
 
+
+
+	public Boolean checkId(UserVo userVo) {
+		UserVo vo = userDao.checkId(userVo.getId());
+		if (vo == null) {
+			return true;
+		}
+		return false;
+	}
+
 	
 }

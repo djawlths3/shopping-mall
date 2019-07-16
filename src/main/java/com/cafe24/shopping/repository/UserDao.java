@@ -37,4 +37,8 @@ public class UserDao {
 		return (sqlSession.delete("user.deleteAll") > 0);
 	}
 
+	public UserVo checkId(String id) {
+		return sqlSession.selectOne("user.checkId", id);		
+	}
+
 }
