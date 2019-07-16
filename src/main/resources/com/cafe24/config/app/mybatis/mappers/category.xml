@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="product">
+<mapper namespace="category">
 	<!-- 카테고리 추가 -->
-	<insert id="categoryInsert" parameterType="productvo">
+	<insert id="insert" parameterType="productvo">
 		<![CDATA[
 			insert into category values(null, #{categoryName});
 		]]>
@@ -14,11 +14,11 @@
 		</selectKey>
 	</insert>
 	<!-- 카테고리 전체 삭제 -->
-	<delete id="categoryAllDelete">
+	<delete id="allDelete">
 		delete from category
 	</delete>
 	<!-- 카테고리 수정 -->
-	<update id="categoryUpdate" parameterType="productvo">
+	<update id="update" parameterType="productvo">
 		<![CDATA[
 			update category set 
 			category_name = #{categoryName}
@@ -26,7 +26,7 @@
 		 ]]>
 	</update>
 	<!-- 카테고리 삭제 -->
-	<update id="categoryDelete" parameterType="productvo">
+	<update id="delete" parameterType="productvo">
 		<![CDATA[
 			delete from category where category_no = #{categoryNo}
 		 ]]>

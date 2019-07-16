@@ -3,18 +3,18 @@ package com.cafe24.shopping.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.shopping.repository.ProductDao;
+import com.cafe24.shopping.repository.CategoryDao;
 import com.cafe24.shopping.vo.ProductVo;
 
 
 
 @Service
-public class ProductService {
+public class CategoryService {
 	@Autowired
-	private ProductDao productDao;
+	private CategoryDao categoryDao;
 
 	public ProductVo categoryRaise(ProductVo productVo) {		
-		Boolean tf = productDao.categoryInsert(productVo);
+		Boolean tf = categoryDao.categoryInsert(productVo);
 		if( tf ) {
 			return productVo;
 		}
@@ -22,11 +22,11 @@ public class ProductService {
 	}
 
 	public Boolean categoryRemoveAll() {
-		return productDao.categoryAllDelete();
+		return categoryDao.categoryAllDelete();
 	}
 
 	public ProductVo categoryModify(ProductVo productVo) {
-		Boolean tf = productDao.categoryUpdate(productVo);
+		Boolean tf = categoryDao.categoryUpdate(productVo);
 		if( tf ) {
 			return productVo;
 		}
@@ -34,7 +34,7 @@ public class ProductService {
 	}
 
 	public Boolean categoryDelete(ProductVo productVo) {
-		Boolean tf = productDao.categoryDelete(productVo);
+		Boolean tf = categoryDao.categoryDelete(productVo);
 		return tf;
 	}
 	

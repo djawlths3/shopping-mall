@@ -39,7 +39,7 @@ import com.google.gson.JsonParser;;
 @ContextConfiguration(classes= {AppConfig.class, TestWebConfig.class})
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class 상품테스트 {
+public class 카테고리테스트 {
 	private MockMvc mockMvc;
 	private ProductVo vo = new ProductVo();
 
@@ -49,13 +49,13 @@ public class 상품테스트 {
 	
 	@Before	
 	public void setup() {
+		vo.setCategoryName("반");
 		vo.setColor("red");
 		vo.setPrice(7000);
 		vo.setProductEtc("상품입니다.아주이뻐요");
 		vo.setProductName("모시반팔");
 		vo.setQuantity(10);
 		vo.setSize("M");
-		vo.setCategoryNo(1);
 		// 상품 이미지 
 		// vo.setImgEtc("img입니다");
 		// vo.setPath("D:/img");

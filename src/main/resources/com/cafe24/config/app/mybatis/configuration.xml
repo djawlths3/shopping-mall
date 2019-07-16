@@ -7,6 +7,6 @@
     </typeAliases>	
 	<mappers>
 		<mapper resource="com/cafe24/config/app/mybatis/mappers/user.xml" />
-		<mapper resource="com/cafe24/config/app/mybatis/mappers/product.xml" />
+		<mapper resource="com/cafe24/config/app/mybatis/mappers/category.xml" />
 	</mappers>
 </configuration>

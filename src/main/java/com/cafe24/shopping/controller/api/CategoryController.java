@@ -13,39 +13,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shopping.dto.JSONResult;
-import com.cafe24.shopping.service.ProductService;
+import com.cafe24.shopping.service.CategoryService;
 import com.cafe24.shopping.vo.ProductVo;
 
 
 
 @RestController()
-@RequestMapping("/api/product")
-public class ProductController {
+@RequestMapping("/api/category")
+public class CategoryController {
 
 	@Autowired
-	private ProductService productService;
+	private CategoryService categoryService;
 	
-	@RequestMapping(value = "/category/removeAll", method = RequestMethod.POST)
+	@RequestMapping(value = "/removeAll", method = RequestMethod.POST)
 	public JSONResult categoryRemoveAll() {
-		Boolean tf = productService.categoryRemoveAll();
+		Boolean tf = categoryService.categoryRemoveAll();
 		return JSONResult.success(tf);
 	}
 	
-	@RequestMapping(value = "/category/raise", method = RequestMethod.POST)
+	@RequestMapping(value = "/raise", method = RequestMethod.POST)
 	public JSONResult categoryRaise(@RequestBody ProductVo productVo) {
-		ProductVo vo = productService.categoryRaise(productVo);
+		ProductVo vo = categoryService.categoryRaise(productVo);
 		return JSONResult.success(vo);
 	}
 	
-	@RequestMapping(value = "/category/modify", method = RequestMethod.POST)
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public JSONResult categoryModify(@RequestBody ProductVo productVo) {
-		ProductVo vo = productService.categoryModify(productVo);
+		ProductVo vo = categoryService.categoryModify(productVo);
 		return JSONResult.success(vo);
 	}
 	
-	@RequestMapping(value = "/category/remove", method = RequestMethod.POST)
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public JSONResult categoryRemove(@RequestBody ProductVo productVo) {	
-		if(productService.categoryDelete(productVo)) {
+		if(categoryService.categoryDelete(productVo)) {
 			return JSONResult.success("삭제");
 		}
 		return JSONResult.fail("삭제실패");
