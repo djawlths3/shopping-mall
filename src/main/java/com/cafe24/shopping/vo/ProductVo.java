@@ -17,7 +17,14 @@ public class ProductVo {
 	int sortNo; // 이미지 정렬순서
 	String imgEtc; // 이미지 기타설명
 	
+	String productSort; //상품정렬
 	
+	public String getProductSort() {
+		return productSort;
+	}
+	public void setProductSort(String productSort) {
+		this.productSort = productSort;
+	}
 	public long getProductNo() {
 		return productNo;
 	}
