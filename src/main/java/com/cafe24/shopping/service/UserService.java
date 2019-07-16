@@ -23,20 +23,21 @@ public class UserService {
 
 
 
-	public Boolean login(UserVo userVo) {
-		return true;
+	public UserVo login(UserVo userVo) {
+		UserVo vo = userDao.login(userVo);
+		return vo;
 	}
 
 
 
-	public Boolean findId(UserVo userVo) {
-		return true;
+	public UserVo findId(UserVo userVo) {
+		return userDao.findId(userVo);
 	}
 
 
 
-	public Boolean findPw(UserVo userVo) {
-		return true;
+	public UserVo findPw(UserVo userVo) {
+		return userDao.findPw(userVo);
 	}
 
 
@@ -54,6 +55,35 @@ public class UserService {
 			return true;
 		}
 		return false;
+	}
+
+
+
+	public UserVo certification(UserVo userVo) {
+		UserVo vo = userDao.certification(userVo);
+		
+		return vo;
+	}
+
+
+
+	public Boolean modifyPw(UserVo userVo) {
+		if(userDao.updatePw(userVo)) {
+			userVo.setCertification("test2");
+			userDao.certificationModify(userVo);
+			return true;
+		}
+		return false;
+	}
+
+
+
+	public UserVo modify(UserVo userVo) {
+		UserVo vo = null;
+		if((userDao.update(userVo) > 0)) {
+			vo = userDao.get(userVo);
+		}
+		return vo;
 	}
 
 	

@@ -3,8 +3,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="uservo" type="com.cafe24.shopping.vo.UserVo"/>
+		<typeAlias alias="productvo" type="com.cafe24.shopping.vo.ProductVo"/>
     </typeAliases>	
 	<mappers>
 		<mapper resource="com/cafe24/config/app/mybatis/mappers/user.xml" />
+		<mapper resource="com/cafe24/config/app/mybatis/mappers/product.xml" />
 	</mappers>
 </configuration>

@@ -9,7 +9,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +28,6 @@ import com.cafe24.shopping.vo.UserVo;
 @RequestMapping("/api/user")
 public class UserController {
 
-	@Autowired
-	private MessageSource messagesource;
 	
 	@Autowired
 	private UserService userService;
@@ -52,30 +49,51 @@ public class UserController {
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 		Set<ConstraintViolation<UserVo>> validatorResults = validator.validateProperty(userVo, "id");
 		if(validatorResults.isEmpty() == false) {
-			//String msg = messagesource.getMessage("NotEmpty.userVo.id", null, LocaleContextHolder.getLocale());
 			for(ConstraintViolation<UserVo> validatorResult : validatorResults) {
 				return JSONResult.fail(validatorResult.getMessage());				
 			}
 		}
-		validatorResults = validator.validateProperty(userVo, "password");
+		UserVo vo = userService.login(userVo);
+		if (vo == null ) {
+			return JSONResult.fail("아이디 혹은 비밀번호가 잘못되었습니다");
+		}
+		return JSONResult.success(vo);
+	}
+
+	@RequestMapping(value = "/findId", method = RequestMethod.POST)
+	public JSONResult findId(@RequestBody UserVo userVo) {
+		UserVo vo = userService.findId(userVo);
+		if (vo == null ) {
+			return JSONResult.fail("아이디가 없습니다.");
+		}
+		return JSONResult.success(vo);
+	}
+
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	public JSONResult findPw(@RequestBody UserVo userVo) {
+		UserVo vo = userService.findPw(userVo);
+		return JSONResult.success(vo);
+	}
+	
+	@RequestMapping(value = "/certification", method = RequestMethod.POST)
+	public JSONResult certification(@RequestBody UserVo userVo) {
+		UserVo vo = userService.certification(userVo);
+		return JSONResult.success(vo);
+	}
+	
+	@RequestMapping(value = "/modifyPw", method = RequestMethod.POST)
+	public JSONResult modifyPw(@RequestBody UserVo userVo) {
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<UserVo>> validatorResults = validator.validateProperty(userVo, "password");
 		if(validatorResults.isEmpty() == false) {
 			for(ConstraintViolation<UserVo> validatorResult : validatorResults) {
 				return JSONResult.fail(validatorResult.getMessage());				
 			}
 		}
-		return JSONResult.success(null);
-	}
-
-	@RequestMapping(value = "/find_id", method = RequestMethod.POST)
-	public JSONResult findId(@RequestBody UserVo userVo) {
-		Boolean tf = userService.findId(userVo);
-		return JSONResult.success(tf);
-	}
-
-	@RequestMapping(value = "/find_pw", method = RequestMethod.POST)
-	public JSONResult findPw(@RequestBody UserVo userVo) {
-		Boolean tf = userService.findPw(userVo);
-		return JSONResult.success(tf);
+		if(userService.modifyPw(userVo)) {
+			return JSONResult.success("성공");
+		}
+		return JSONResult.fail("실패");
 	}
 
 	@RequestMapping(value = "/checkId", method = RequestMethod.POST)
@@ -84,6 +102,17 @@ public class UserController {
 			return JSONResult.success("사용가능한 아이디 입니다.");
 		}
 		return JSONResult.fail("중복되는 아이디가 있습니다.");
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public JSONResult modify(@RequestBody @Valid UserVo userVo, BindingResult result) {
+		if( result.hasErrors() ) {
+			List<ObjectError> list = result.getAllErrors();
+			for(ObjectError error : list) {
+				return JSONResult.fail(error.getDefaultMessage());
+			}				
+		}
+		return JSONResult.success(userService.modify(userVo));
 	}
 	
 	@RequestMapping(value = "/removeAll", method = RequestMethod.POST)

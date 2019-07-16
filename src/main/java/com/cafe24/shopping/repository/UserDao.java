@@ -20,13 +20,6 @@ public class UserDao {
 	@Autowired
 	private DataSource datasource;
 
-	public UserVo get(Long no){
-		return sqlSession.selectOne("user.getByNo", no);
-	}
-	
-	public UserVo get(String email){
-		return sqlSession.selectOne("user.getByEmail", email);
-	}
 
 	public Boolean insert(UserVo vo) {
 		int cnt = sqlSession.insert("user.insert",vo);
@@ -39,6 +32,39 @@ public class UserDao {
 
 	public UserVo checkId(String id) {
 		return sqlSession.selectOne("user.checkId", id);		
+	}
+
+	public UserVo login(UserVo userVo) {
+		return sqlSession.selectOne("user.login", userVo);
+	}
+
+	public UserVo findId(UserVo userVo) {
+		return sqlSession.selectOne("user.findId", userVo);
+	}
+
+	public UserVo findPw(UserVo userVo) {
+		return sqlSession.selectOne("user.findPw", userVo);
+	}
+
+	public UserVo certification(UserVo userVo) {
+		return sqlSession.selectOne("user.certification", userVo);
+	}
+
+	public int certificationModify(UserVo userVo) {
+		return sqlSession.update("user.certificationModify", userVo);
+	}
+
+	public Boolean updatePw(UserVo userVo) {
+		return (sqlSession.update("user.updatePw", userVo) > 0);
+	}
+
+	public int update(UserVo userVo) {
+		return sqlSession.update("user.update", userVo);
+	}
+
+
+	public UserVo get(UserVo userVo) {
+		return sqlSession.selectOne("user.select", userVo);
 	}
 
 }
