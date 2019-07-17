@@ -26,8 +26,8 @@ public class ProductController {
 	private ProductService productService;
 	
 	
-	@RequestMapping(value = "/raise", method = RequestMethod.POST)
-	public JSONResult productRaise(@RequestBody ProductVo productVo) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public JSONResult productAdd(@RequestBody ProductVo productVo) {
 		ProductVo vo = productService.productRaise(productVo);
 		return JSONResult.success(vo);
 	}
@@ -47,6 +47,42 @@ public class ProductController {
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public JSONResult productModify(@RequestBody ProductVo productVo) {
 		Boolean tf = productService.productModify(productVo);
+		return JSONResult.success(tf);
+	}
+	
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
+	public JSONResult productRemove(@RequestBody ProductVo productVo) {
+		Boolean tf = productService.productRemove(productVo);
+		return JSONResult.success(tf);
+	}
+	
+	@RequestMapping(value = "/stock/add", method = RequestMethod.POST)
+	public JSONResult stockAdd(@RequestBody ProductVo productVo) {
+		Boolean tf = productService.stockAdd(productVo);
+		return JSONResult.success(tf);
+	}
+	
+	@RequestMapping(value = "/stock/modify", method = RequestMethod.POST)
+	public JSONResult stockModify(@RequestBody ProductVo productVo) {
+		Boolean tf = productService.stockModify(productVo);
+		return JSONResult.success(tf);
+	}
+	
+	@RequestMapping(value = "/stock/remove", method = RequestMethod.POST)
+	public JSONResult stockRemove(@RequestBody ProductVo productVo) {
+		Boolean tf = productService.stockRemove(productVo);
+		return JSONResult.success(tf);
+	}
+	
+	@RequestMapping(value = "/overlap", method = RequestMethod.POST)
+	public JSONResult productOverlap(@RequestBody ProductVo productVo) {
+		Boolean tf = productService.productOverlap(productVo);
+		return JSONResult.success(tf);
+	}
+	
+	@RequestMapping(value = "/stock/overlap", method = RequestMethod.POST)
+	public JSONResult stockOverlap(@RequestBody ProductVo productVo) {
+		Boolean tf = productService.stockOverlap(productVo);
 		return JSONResult.success(tf);
 	}
 

@@ -14,12 +14,7 @@
 			]]>
 		</selectKey>
 	</insert>
-	<!-- 재고 추가 -->
-	<insert id="insertStock" parameterType="productvo">
-		<![CDATA[
-			insert into stock values(#{productNo}, #{size}, #{color}, #{quantity})
-		]]>
-	</insert>
+	
 	<!-- 상품리스트 -->
 	<select id="selectList" parameterType="productvo"
 		resultType="productvo">
@@ -58,10 +53,11 @@
 		]]>
 	</select>
 
+	
 	<!-- 상품정보 수정 -->
-	<update id="update" parameterType="productvo">
+	<update id="updateProduct" parameterType="productvo">
 		<![CDATA[
-			update product a inner join stock b on a.product_no = b.product_no
+			update product a
 			set a.product_name = #{productName}
 		]]>
 		<if test="price != null">
@@ -70,12 +66,58 @@
 		<if test="productEtc != null">
 			, a.product_etc = #{productEtc}
 		</if>
-		<if test="size != null">
-			, b.size = #{size}
+		<if test="productDate != null">
+			, a.product_date = #{productDate}
 		</if>
-		<if test="color != null">
-			, b.color = #{color}
+		<if test="categoryNo != null">
+			, a.category_no = #{categoryNo}
 		</if>
 		where a.product_no = #{productNo}
 	</update>
+	
+	<!-- 상품삭제 -->
+	<update id="deleteProduct" parameterType="productvo">
+		delete from product where product_no = #{productNo}
+	</update>
+	
+	<!-- 재고 추가 -->
+	<insert id="insertStock" parameterType="productvo">
+		<![CDATA[
+			insert into stock values(null, #{productNo}, #{size}, #{color}, #{quantity})
+		]]>
+		<selectKey keyProperty="stockNo" resultType="Long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+	
+	<!-- 재고 수정 -->
+	<update id="updateStock" parameterType="productvo">
+		<![CDATA[
+			update stock set size = #{size} , color = #{color}
+		]]>
+		<if test="quantity != null">
+			, quantity = #{quantity}
+		</if>
+		where stock_no = #{stockNo}
+	</update>
+	
+	<!-- 상품삭제 -->
+	<update id="deleteStock" parameterType="productvo">
+		delete from stock where stock_no = #{stockNo}
+	</update>
+	<!-- 상품 중복 검사  -->
+	<select id="selectProduct" parameterType="productvo" resultType="int">
+		<![CDATA[
+			select count(*) from product where product_name = #{productName}
+		]]>
+	</select>
+	
+	<!-- 재고 중복 검사  -->
+	<select id="selectStock" parameterType="productvo" resultType="int">
+		<![CDATA[
+			select count(*) from stock where product_no = #{productNo} and size = #{size} and color = #{color}
+		]]>
+	</select>
 </mapper>

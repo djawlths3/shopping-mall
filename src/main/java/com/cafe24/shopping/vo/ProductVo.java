@@ -2,23 +2,31 @@ package com.cafe24.shopping.vo;
 
 public class ProductVo {
 
-	long productNo; //상품번호
-	String productName; //상품이름
-	long price; //가격
-	String productDate; // 상품등록일
-	String productEtc; // 상품 기타설명
-	long categoryNo; //카테고리 번호
-	String categoryName; // 카테고리 이름
-	String size; //사이즈
-	String color; // 색깔
-	int quantity; // 수량
-	long imgNo; // 이미지 번호
-	String path; // 이미지 경로
-	int sortNo; // 이미지 정렬순서
-	String imgEtc; // 이미지 기타설명
+	private long productNo; //상품번호
+	private String productName; //상품이름
+	private long price; //가격
+	private String productDate; // 상품등록일
+	private String productEtc; // 상품 기타설명
+	private long categoryNo; //카테고리 번호
+	private String categoryName; // 카테고리 이름
+	private String size; //사이즈
+	private String color; // 색깔
+	private int quantity; // 수량
+	private long imgNo; // 이미지 번호
+	private String path; // 이미지 경로
+	private int sortNo; // 이미지 정렬순서
+	private String imgEtc; // 이미지 기타설명
 	
-	String productSort; //상품정렬
+	private String productSort; //상품정렬
+	private long stockNo; //재고 번호
 	
+	
+	public long getStockNo() {
+		return stockNo;
+	}
+	public void setStockNo(long stockNo) {
+		this.stockNo = stockNo;
+	}
 	public String getProductSort() {
 		return productSort;
 	}

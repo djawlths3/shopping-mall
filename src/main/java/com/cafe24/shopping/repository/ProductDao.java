@@ -43,7 +43,29 @@ public class ProductDao {
 	}
 
 	public Boolean update(ProductVo productVo) {
-		return (sqlSession.update("product.update", productVo) > 0);
+		return (sqlSession.update("product.updateProduct", productVo) > 0);
+	}
+
+	public Boolean delete(ProductVo productVo) {
+		return (sqlSession.delete("product.deleteProduct", productVo) > 0);
+	}
+
+	public Boolean updateStock(ProductVo productVo) {
+		return (sqlSession.update("product.updateStock", productVo) > 0);
+	}
+
+	public Boolean deleteStock(ProductVo productVo) {
+		return (sqlSession.delete("product.deleteStock", productVo) > 0);
+	}
+
+	public Boolean selectProduct(ProductVo productVo) {
+		int result = sqlSession.selectOne("product.selectProduct", productVo);
+		return result > 0;
+	}
+
+	public Boolean selectStock(ProductVo productVo) {
+		int result = sqlSession.selectOne("product.selectStock", productVo);
+		return result > 0;
 	}
 	
 	

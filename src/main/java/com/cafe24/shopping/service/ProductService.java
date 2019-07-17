@@ -38,6 +38,35 @@ public class ProductService {
 		return tf;
 	}
 
+	public Boolean productRemove(ProductVo productVo) {
+		Boolean tf = productDao.delete(productVo);
+		return tf;
+	}
+
+	public Boolean stockAdd(ProductVo productVo) {
+		return productDao.insertStock(productVo);
+	}
+
+	public Boolean stockModify(ProductVo productVo) {
+		Boolean tf = productDao.updateStock(productVo);
+		return tf;
+	}
+
+	public Boolean stockRemove(ProductVo productVo) {
+		Boolean tf = productDao.deleteStock(productVo);
+		return tf;
+	}
+
+	public Boolean productOverlap(ProductVo productVo) {
+		Boolean tf = productDao.selectProduct(productVo);
+		return tf;
+	}
+
+	public Boolean stockOverlap(ProductVo productVo) {
+		Boolean tf = productDao.selectStock(productVo);
+		return tf;
+	}
+
 
 		
 	
