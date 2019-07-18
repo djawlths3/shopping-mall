@@ -1,5 +1,7 @@
 package com.cafe24.shopping.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,4 +27,21 @@ public class BascketController {
 		return JSONResult.success(vo);
 	}
 	
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public JSONResult bascketList(@RequestBody BascketVo bascketVo) {
+		List<BascketVo> li = bascketService.bascketList(bascketVo);
+		return JSONResult.success(li);
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public JSONResult bascketModify(@RequestBody BascketVo bascketVo) {
+		Boolean tf = bascketService.bascketModify(bascketVo);
+		return JSONResult.success(tf);
+	}
+	
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
+	public JSONResult bascketRemove(@RequestBody BascketVo bascketVo) {
+		Boolean tf = bascketService.bascketRemove(bascketVo);
+		return JSONResult.success(tf);
+	}
 }

@@ -11,8 +11,15 @@ public class BascketVo {
 	private long price; //가격
 	private String enrollmentDate; //등록날자
 	private String ip; // 아이피
+	private int existence = 0; // 장바구니에 같은 제품이 있는지 유무
 	
 	
+	public int getExistence() {
+		return existence;
+	}
+	public void setExistence(int existence) {
+		this.existence = existence;
+	}
 	public long getBascketNo() {
 		return bascketNo;
 	}

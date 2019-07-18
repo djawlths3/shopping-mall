@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -41,20 +42,41 @@ public class 장바구니테스트 {
 	
 	@Before	
 	public void setup() {
-		vo.setStockNo(1);
+		vo.setStockNo(2);
 		vo.setIp("127.0.0.1");
 		vo.setMemberNo(63);
-		vo.setQuantity(2);
+		vo.setQuantity(3);
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
-
+	@Ignore
 	@Test
 	public void 테스트01_장바구니추가() throws Exception {
 		ResultActions resultAction = mockMvc.perform(post("/api/bascket/add").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
-		//stockNo가 같을때는 기존상품에 + 되게 처리 해야함
 	}
 	
+	@Ignore
+	@Test
+	public void 테스트02_장바구니조회() throws Exception {
+		ResultActions resultAction = mockMvc.perform(post("/api/bascket/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print());
+	}
+	
+	@Ignore
+	@Test
+	public void 테스트03_장바구니수정() throws Exception {
+		vo.setQuantity(13);
+		vo.setBascketNo(2);
+		ResultActions resultAction = mockMvc.perform(post("/api/bascket/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print());
+	}
+	@Ignore
+	@Test
+	public void 테스트03_장바구니삭제() throws Exception {
+		vo.setBascketNo(2);
+		ResultActions resultAction = mockMvc.perform(post("/api/bascket/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print());
+	}
 	
 }

@@ -3,19 +3,75 @@
 
 <mapper namespace="bascket">
 	<insert id="insert" parameterType="bascketvo">
-		<![CDATA[
-			insert into bascket values(null, #{memberNo}, #{ip})
-		]]>
+		insert into bascket values(null, #{memberNo}, #{ip})		
 		<selectKey keyProperty="bascketNo" resultType="Long" order="AFTER">
-			<![CDATA[
-				select last_insert_id()
-			]]>
+			select last_insert_id()
 		</selectKey>
 	</insert>
-	
+
 	<insert id="insertBascketManage" parameterType="bascketvo">
-		<![CDATA[
-			insert into bascket_manage values(#{productNo}, #{bascketNo}, #{price}, now(), #{stockNo} )
-		]]>
+		<selectKey keyProperty="existence" resultType="int" order="BEFORE">
+				select count(*) from bascket a, bascket_manage b 
+				where a.bascket_no = b.bascket_no 
+				and  b.stock_no = #{stockNo} 
+				<choose>
+					<when test="memberNo != 0">
+						and a.member_no = #{memberNo} 
+					</when>
+					<otherwise>
+						and a.ip = #{ip} 
+					</otherwise>
+				</choose>	
+		</selectKey>
+
+		<choose>
+			<when test="existence == 0">
+				<![CDATA[
+					insert into bascket_manage values(#{bascketNo}, #{stockNo}, #{price}, now(), #{quantity} )
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					update bascket_manage set quantity = quantity + #{quantity}  where stock_no = #{stockNo}
+				]]>
+			</otherwise>
+		</choose>	
 	</insert>
+	
+	<select id="bascketOverlap" parameterType="bascketvo" resultType="int">
+		select count(*) from bascket a, bascket_manage b where a.bascket_no = b.bascket_no and a.member_no = #{memberNo} and b.stock_no = #{stockNo}
+	</select>
+	
+	<select id="selectList" parameterType="bascketvo" resultType="bascketvo">
+		select d.product_name as productName, c.size, c.color , b.quantity, b.price, b.bascket_no as bascketNo
+		from bascket a, bascket_manage b, stock c, product d 
+		where a.bascket_no = b.bascket_no 
+		and b.stock_no = c.stock_no
+		and c.product_no = d.product_no
+		<choose>
+			<when test="memberNo != 0">
+				and a.member_no = #{memberNo} 
+			</when>
+			<otherwise>
+				and a.ip = #{ip} 
+			</otherwise>
+		</choose>	
+	</select>
+	
+	<!-- 장바구니 수정 -->
+	<update id="update" parameterType="bascketvo">
+		<![CDATA[
+			update bascket_manage set 
+			quantity = #{quantity}
+		 	where bascket_no = #{bascketNo}
+		 ]]>
+	</update>
+	
+	<!-- 장바구니 삭제-->
+	<delete id="delete" parameterType="bascketvo">
+		<![CDATA[
+			delete from bascket_manage
+		 	where stock_no = #{stockNo}
+		 ]]>
+	</delete>
 </mapper>

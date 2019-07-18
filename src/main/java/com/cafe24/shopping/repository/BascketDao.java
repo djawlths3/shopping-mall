@@ -1,6 +1,7 @@
 package com.cafe24.shopping.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -26,8 +27,23 @@ public class BascketDao {
 
 	public void insertBaskcetManage(BascketVo bascketVo) {
 		sqlSession.insert("bascket.insertBascketManage", bascketVo);
-		
 	}
 
+	public Boolean bascketOverlap(BascketVo bascketVo) {
+		int result = sqlSession.selectOne("bascket.bascketOverlap", bascketVo);
+		return (result == 0);
+	}
 
+	public List<BascketVo> selectList(BascketVo bascketVo) {
+		List li = sqlSession.selectList("bascket.selectList", bascketVo);
+		return li;
+	}
+
+	public Boolean update(BascketVo bascketVo) {
+		return sqlSession.update("bascket.update", bascketVo) > 0;
+	}
+
+	public Boolean delete(BascketVo bascketVo) {
+		return sqlSession.update("bascket.delete", bascketVo) > 0;
+	}
 }
