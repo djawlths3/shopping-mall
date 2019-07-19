@@ -42,6 +42,11 @@ public class BascketService {
 		return tf;
 	}
 
+	public Boolean bascketRemoveAll(BascketVo bascketVo) {
+		Boolean tf = bascketDao.deleteAll(bascketVo);
+		return tf;
+	}
+
 	
 
 	

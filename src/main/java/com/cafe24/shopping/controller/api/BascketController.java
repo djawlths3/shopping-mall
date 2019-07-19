@@ -44,4 +44,10 @@ public class BascketController {
 		Boolean tf = bascketService.bascketRemove(bascketVo);
 		return JSONResult.success(tf);
 	}
+	
+	@RequestMapping(value = "/removeAll", method = RequestMethod.DELETE)
+	public JSONResult bascketRemoveAll(@RequestBody BascketVo bascketVo) {
+		Boolean tf = bascketService.bascketRemoveAll(bascketVo);
+		return JSONResult.success(tf);
+	}
 }

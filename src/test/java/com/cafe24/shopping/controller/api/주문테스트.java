@@ -26,16 +26,16 @@ import org.springframework.http.MediaType;
 
 import com.cafe24.config.web.TestWebConfig;
 import com.cafe24.shopping.config.AppConfig;
-import com.cafe24.shopping.vo.BascketVo;
+import com.cafe24.shopping.vo.OrderVo;
 import com.google.gson.Gson;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {AppConfig.class, TestWebConfig.class})
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class 장바구니테스트 {
+public class 주문테스트 {
 	private MockMvc mockMvc;
-	private BascketVo vo = new BascketVo();
+	private OrderVo vo = new OrderVo();
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
@@ -43,48 +43,13 @@ public class 장바구니테스트 {
 	
 	@Before	
 	public void setup() {
-		vo.setStockNo(2);
-		vo.setIp("127.0.0.1");
-		vo.setMemberNo(63);
-		vo.setQuantity(3);
+		
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
-	@Ignore
 	@Test
-	public void 테스트01_장바구니추가() throws Exception {
-		ResultActions resultAction = mockMvc.perform(post("/api/bascket/add").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
-		resultAction.andExpect(status().isOk()).andDo(print());
-	}
-	
-	@Ignore
-	@Test
-	public void 테스트02_장바구니조회() throws Exception {
-		ResultActions resultAction = mockMvc.perform(post("/api/bascket/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
-		resultAction.andExpect(status().isOk()).andDo(print());
-	}
-	
-	@Ignore
-	@Test
-	public void 테스트03_장바구니수정() throws Exception {
-		vo.setQuantity(13);
-		vo.setBascketNo(2);
-		ResultActions resultAction = mockMvc.perform(post("/api/bascket/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
-		resultAction.andExpect(status().isOk()).andDo(print());
-	}
-	@Ignore
-	@Test
-	public void 테스트04_장바구니삭제() throws Exception {
-		vo.setBascketNo(2);
-		ResultActions resultAction = mockMvc.perform(post("/api/bascket/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
-		resultAction.andExpect(status().isOk()).andDo(print());
-	}
-	
-	@Ignore
-	@Test
-	public void 테스트05_장바구니전체삭제() throws Exception {
-		vo.setBascketNo(2);
-		ResultActions resultAction = mockMvc.perform(delete("/api/bascket/removeAll").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+	public void 테스트01_주문등록() throws Exception {
+		ResultActions resultAction = mockMvc.perform(post("/api/order/add").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 	}
 }

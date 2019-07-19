@@ -74,4 +74,12 @@
 		 	where stock_no = #{stockNo}
 		 ]]>
 	</delete>
+	
+	<!-- 장바구니 전체 삭제-->
+	<delete id="deleteAll" parameterType="bascketvo">
+		<![CDATA[
+			delete from bascket
+		 	where bascket_no = #{bascketNo}
+		 ]]>
+	</delete>
 </mapper>

@@ -46,4 +46,8 @@ public class BascketDao {
 	public Boolean delete(BascketVo bascketVo) {
 		return sqlSession.update("bascket.delete", bascketVo) > 0;
 	}
+
+	public Boolean deleteAll(BascketVo bascketVo) {
+		return sqlSession.update("bascket.deleteAll", bascketVo) > 0;
+	}
 }
