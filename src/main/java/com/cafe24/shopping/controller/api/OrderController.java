@@ -25,5 +25,11 @@ public class OrderController {
 		OrderVo vo = orderService.orderAdd(orderVo);
 		return JSONResult.success(vo);
 	}
+	
+	@RequestMapping(value = "/addBasket", method = RequestMethod.POST)
+	public JSONResult orderAddBascket(@RequestBody OrderVo orderVo) {
+		OrderVo vo = orderService.orderAddBascket(orderVo);
+		return JSONResult.success(vo);
+	}
 
 }

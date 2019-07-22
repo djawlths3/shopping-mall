@@ -1,5 +1,7 @@
 package com.cafe24.shopping.vo;
 
+import java.util.List;
+
 public class OrderVo {
 	private String orderNo;// 주문번호
 	private String id; // 아이디
@@ -19,8 +21,14 @@ public class OrderVo {
 	private String color; // 색상
 	private int price; // 가격
 	private int productNo; // 상품번호
+	private List bascketProduct; //장바구니
 	
-	
+	public List getBascketProduct() {
+		return bascketProduct;
+	}
+	public void setBascketProduct(List bascketProduct) {
+		this.bascketProduct = bascketProduct;
+	}
 	public int getQuantity() {
 		return quantity;
 	}
