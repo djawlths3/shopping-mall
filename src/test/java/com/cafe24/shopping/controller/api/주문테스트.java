@@ -43,13 +43,46 @@ public class 주문테스트 {
 	
 	@Before	
 	public void setup() {
+		vo.setAddress("왕십리");
+		vo.setAddressDetail("1109");
+		vo.setId("djawlths4");
+		vo.setMsg("경비실에 맡겨주세요");
+		vo.setName("엄기윤");
+		vo.setPassword("1234");
+		vo.setPhone("01095590484");
 		
+		vo.setQuantity(2);
+		vo.setSize("m");
+		vo.setColor("red");
+		vo.setPrice(35000);
+		vo.setProductNo(1);
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
+	@Ignore
 	@Test
-	public void 테스트01_주문등록() throws Exception {
+	public void 테스트01_상품단품주문() throws Exception {
+		//회원 상품 주문 
+		vo.setPassword(null);
 		ResultActions resultAction = mockMvc.perform(post("/api/order/add").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
+		// 비회원 상품 주문 
+		setup();
+		vo.setId(null);
+		resultAction = mockMvc.perform(post("/api/order/add").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print());		
+	}
+	
+	@Test
+	public void 테스트02_상품장바구니주문() throws Exception {
+		//회원 상품 주문 
+		vo.setPassword(null);
+		ResultActions resultAction = mockMvc.perform(post("/api/order/add").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print());
+		// 비회원 상품 주문 
+		setup();
+		vo.setId(null);
+		resultAction = mockMvc.perform(post("/api/order/add").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction.andExpect(status().isOk()).andDo(print());		
 	}
 }

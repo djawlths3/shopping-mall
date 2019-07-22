@@ -1,5 +1,128 @@
 package com.cafe24.shopping.vo;
 
 public class OrderVo {
+	private String orderNo;// 주문번호
+	private String id; // 아이디
+	private String password;// 비밀번호
+	private String name; // 이름
+	private String phone; // 폰번호
+	private String address;// 배송지
+	private String addressDetail; // 배송지 상세
+	private String status; // 상태
+	private String orderDate; // 주문일
+	private String msg;// 요청메세지
+	private String completeDate; // 완료일
+	private String deliveryNo; // 송장번호
+	
+	private int quantity; // 수량
+	private String size; // 사이즈
+	private String color; // 색상
+	private int price; // 가격
+	private int productNo; // 상품번호
+	
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int i) {
+		this.quantity = i;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public int getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(int product_no) {
+		this.productNo = product_no;
+	}
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getAddressDetail() {
+		return addressDetail;
+	}
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public String getCompleteDate() {
+		return completeDate;
+	}
+	public void setCompleteDate(String completeDate) {
+		this.completeDate = completeDate;
+	}
+	public String getDeliveryNo() {
+		return deliveryNo;
+	}
+	public void setDeliveryNo(String deliveryNo) {
+		this.deliveryNo = deliveryNo;
+	}
+	
 	
 }
