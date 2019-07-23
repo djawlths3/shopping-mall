@@ -2,15 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="order">
-<insert id="insert" parameterType="ordervo">
+	<insert id="insert" parameterType="ordervo">
 		insert into orders values
 		(
-			(
-				select CONCAT('ORD-',DATE_FORMAT(now(),'%y%m%d'), '-', LPAD(count(a.order_date) +1 ,5,0)) 
-				from orders a where DATE_FORMAT(a.order_date,'%Y%m%d') = DATE_FORMAT(now() ,'%Y%m%d')
-			), 
-			#{id}, 			
-			<choose>
+		(
+		select CONCAT('ORD-',DATE_FORMAT(now(),'%y%m%d'), '-',
+		LPAD(count(a.order_date) +1 ,5,0))
+		from orders a where DATE_FORMAT(a.order_date,'%Y%m%d') = DATE_FORMAT(now()
+		,'%Y%m%d')
+		),
+		#{id},
+		<choose>
 			<when test="password == null or password ==''">
 				<![CDATA[
 					(select password from user where id = #{id}) ,	
@@ -21,28 +23,121 @@
 					#{password}, 
 				]]>
 			</otherwise>
-		</choose>	
-			#{name}, #{phone}, #{address}, 
-			#{addressDetail}, #{status}, 
-			now(), #{msg}, #{completeDate}, null
+		</choose>
+		#{name}, #{phone}, #{address},
+		#{addressDetail}, #{status},
+		now(), #{msg}, #{completeDate}, null
 		)
-		<selectKey keyProperty="orderNo" resultType="string" order="AFTER">
-			select order_no as orderNo from orders order by order_no desc limit 1
+		<selectKey keyProperty="orderNo" resultType="string"
+			order="AFTER">
+			select order_no as orderNo from orders order by order_no desc
+			limit 1
 		</selectKey>
 	</insert>
-	
+
 	<insert id="insertProduct" parameterType="ordervo">
 		insert into order_product values
 		(
-			#{quantity},
-			#{size},
-			#{color},
-			#{price},
-			#{orderNo},
-			#{productNo}
+		#{quantity},
+		#{size},
+		#{color},
+		#{price},
+		#{orderNo},
+		#{productNo}
 		)
-		<selectKey keyProperty="orderNo" resultType="string" order="AFTER">
-			select order_no as orderNo from orders order by order_no desc limit 1
+		<selectKey keyProperty="orderNo" resultType="string"
+			order="AFTER">
+			select order_no as orderNo from orders order by order_no desc
+			limit 1
 		</selectKey>
 	</insert>
+	
+	<insert id="insertPayment" parameterType="ordervo">
+		insert into payment values
+		(
+			null,
+			#{orderNo},
+			'무통장입금',
+			#{paymentComplete}
+		)
+	</insert>
+
+	<!-- 주문조회 -->
+	<select id="selectList" parameterType="ordervo"
+		resultType="ordervo">
+		select
+			a.order_no as orderNo,
+			a.order_date as orderDate,
+			a.msg,
+			a.complete_date as completeDate,
+			a.delivery_no as deliveryNo,
+			b.quantity,
+			b.size,
+			b.color,
+			b.price
+		from orders a, order_product b 
+		where a.order_no = b.order_no and 
+		<choose>
+			<when test="id == null or id ==''">
+				<![CDATA[
+					a.order_no = #{orderNo} and a.password=#{password}
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					a.id=#{id}
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 전체주문조회 -->
+	<select id="selectListAll" parameterType="ordervo"
+		resultType="ordervo">
+		select
+			a.order_no as orderNo,
+			a.order_date as orderDate,
+			a.msg,
+			a.complete_date as completeDate,
+			a.delivery_no as deliveryNo,
+			b.quantity,
+			b.size,
+			b.color,
+			b.price,
+			c.payment_complete as paymentComplete
+		from orders a, order_product b, payment c 
+		where 
+		a.order_no = b.order_no
+        and a.order_no = c.order_no 
+        and 'master' = (select grade from user where id = #{id})
+
+	</select>
+	
+	<!-- 수정된 주문 조회 -->
+	<select id="select" parameterType="ordervo"
+		resultType="ordervo">
+		select
+			a.order_no as orderNo,
+			a.order_date as orderDate,
+			a.msg,
+			a.complete_date as completeDate,
+			a.delivery_no as deliveryNo,
+			b.quantity,
+			b.size,
+			b.color,
+			b.price,
+			c.payment_complete as paymentComplete
+		from orders a, order_product b, payment c 
+		where a.order_no = b.order_no and a.order_no = c.order_no and
+		a.order_no = #{orderNo}
+	</select>
+	
+	<!-- 주문 수정 -->
+	<update id="deleteStock" parameterType="productvo">
+		update orders a, payment b 
+		set a.status = #{status}, a.complete_date = now(), a.delivery_no = #{deliveryNo} 
+		b.payment_complete = #{paymentComplete}
+		where a.order_no = b.order_no
+		and order_no = #{orderNo}
+	</update>
 </mapper>

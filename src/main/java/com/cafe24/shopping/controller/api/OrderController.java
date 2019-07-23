@@ -1,5 +1,7 @@
 package com.cafe24.shopping.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,4 +34,21 @@ public class OrderController {
 		return JSONResult.success(vo);
 	}
 
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public JSONResult orderSearch(@RequestBody OrderVo orderVo) {
+		List li = orderService.orderSearch(orderVo);
+		return JSONResult.success(li);
+	}
+	
+	@RequestMapping(value = "/searchAll", method = RequestMethod.POST)
+	public JSONResult orderSearchAll(@RequestBody OrderVo orderVo) {
+		List li = orderService.orderSearchAll(orderVo);
+		return JSONResult.success(li);
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public JSONResult orderModify(@RequestBody OrderVo orderVo) {
+		OrderVo vo = orderService.orderModify(orderVo);
+		return JSONResult.success(vo);
+	}
 }

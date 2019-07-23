@@ -23,6 +23,28 @@ public class OrderVo {
 	private int productNo; // 상품번호
 	private List bascketProduct; //장바구니
 	
+	private int paymentNo; //결제 번호
+	private String paymentComplete = "N"; //결제유무
+	private String paymentMethod = "무통장입금";// 결제 방법
+	
+	public int getPaymentNo() {
+		return paymentNo;
+	}
+	public void setPaymentNo(int paymentNo) {
+		this.paymentNo = paymentNo;
+	}
+	public String getPaymentComplete() {
+		return paymentComplete;
+	}
+	public void setPaymentComplete(String paymentComplete) {
+		this.paymentComplete = paymentComplete;
+	}
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 	public List getBascketProduct() {
 		return bascketProduct;
 	}

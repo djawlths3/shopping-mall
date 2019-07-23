@@ -20,6 +20,7 @@ public class OrderService {
 	public OrderVo orderAdd(OrderVo orderVo) {
 		if(orderDao.insert(orderVo)) {
 			if(orderDao.insertProduct(orderVo)) {
+				orderDao.insertPayment(orderVo);
 				return orderVo;
 			}			
 		}
@@ -37,9 +38,28 @@ public class OrderService {
 				orderVo.setProductNo((int)mp.get("productNo"));
 				orderDao.insertProduct(orderVo);
 			}		
+			orderDao.insertPayment(orderVo);
 			return orderVo;
 		}
 		return null;
+	}
+
+	public List orderSearch(OrderVo orderVo) {
+		List li = orderDao.selectList(orderVo);
+		return li;
+	}
+
+	public List orderSearchAll(OrderVo orderVo) {
+		List li = orderDao.selectListAll(orderVo);
+		return li;
+	}
+
+	public OrderVo orderModify(OrderVo orderVo) {
+		OrderVo vo = null;
+		if(orderDao.update(orderVo)) {
+			vo = orderDao.select(orderVo);
+		}
+		return vo;
 	}
 
 	
