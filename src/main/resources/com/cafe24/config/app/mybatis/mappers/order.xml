@@ -3,6 +3,8 @@
 
 <mapper namespace="order">
 	<insert id="insert" parameterType="ordervo">
+		
+		
 		insert into orders values
 		(
 		(
@@ -25,11 +27,12 @@
 			</otherwise>
 		</choose>
 		#{name}, #{phone}, #{address},
-		#{addressDetail}, #{status},
+		#{addressDetail}, '주문대기',
 		now(), #{msg}, #{completeDate}, null
 		)
-		<selectKey keyProperty="orderNo" resultType="string"
-			order="AFTER">
+		
+		
+		<selectKey keyProperty="orderNo" resultType="string" order="AFTER">
 			select order_no as orderNo from orders order by order_no desc
 			limit 1
 		</selectKey>
@@ -133,11 +136,17 @@
 	</select>
 	
 	<!-- 주문 수정 -->
-	<update id="deleteStock" parameterType="productvo">
+	<update id="deleteStock" parameterType="ordervo">
 		update orders a, payment b 
 		set a.status = #{status}, a.complete_date = now(), a.delivery_no = #{deliveryNo} 
 		b.payment_complete = #{paymentComplete}
 		where a.order_no = b.order_no
 		and order_no = #{orderNo}
 	</update>
+	
+	<!-- 수량확인 수정 
+	<update id="quantityCheck" parameterType="ordervo">
+
+	</update>
+	-->
 </mapper>

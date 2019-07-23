@@ -54,7 +54,7 @@ public class 주문테스트 {
 		vo.setName("엄기윤");
 		vo.setPassword("1234");
 		vo.setPhone("01095590484");
-		
+
 		vo.setQuantity(2);
 		vo.setSize("m");
 		vo.setColor("red");

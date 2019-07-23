@@ -45,6 +45,10 @@ public class OrderDao {
 		return vo;
 	}
 
+	public boolean quantityCheck(OrderVo orderVo) {
+		return sqlSession.update("order.quantityCheck", orderVo) > 0;
+	}
+
 	
 	
 }

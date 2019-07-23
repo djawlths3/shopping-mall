@@ -14,14 +14,17 @@ public class OrderVo {
 	private String orderDate; // 주문일
 	private String msg;// 요청메세지
 	private String completeDate; // 완료일
+	
 	private String deliveryNo; // 송장번호
 	
+	private int stockNo; // 상품번호
 	private int quantity; // 수량
 	private String size; // 사이즈
 	private String color; // 색상
 	private int price; // 가격
 	private int productNo; // 상품번호
 	private List bascketProduct; //장바구니
+	private int existence; //쿼리에서 재고 있는지 검사
 	
 	private int paymentNo; //결제 번호
 	private String paymentComplete = "N"; //결제유무
@@ -153,6 +156,17 @@ public class OrderVo {
 	public void setDeliveryNo(String deliveryNo) {
 		this.deliveryNo = deliveryNo;
 	}
-	
+	public int getStockNo() {
+		return stockNo;
+	}
+	public void setStockNo(int stockNo) {
+		this.stockNo = stockNo;
+	}
+	public int getExistence() {
+		return existence;
+	}
+	public void setExistence(int existence) {
+		this.existence = existence;
+	}
 	
 }

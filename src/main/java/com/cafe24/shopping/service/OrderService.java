@@ -22,7 +22,8 @@ public class OrderService {
 			if(orderDao.insertProduct(orderVo)) {
 				orderDao.insertPayment(orderVo);
 				return orderVo;
-			}			
+			}							
+			
 		}
 		return null;
 	}
@@ -36,7 +37,7 @@ public class OrderService {
 				orderVo.setColor((String)mp.get("color"));
 				orderVo.setPrice((int)mp.get("price"));
 				orderVo.setProductNo((int)mp.get("productNo"));
-				orderDao.insertProduct(orderVo);
+				orderDao.insertProduct(orderVo);					
 			}		
 			orderDao.insertPayment(orderVo);
 			return orderVo;
