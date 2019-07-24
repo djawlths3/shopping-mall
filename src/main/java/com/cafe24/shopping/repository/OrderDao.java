@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.shopping.vo.OrderVo;
 
@@ -14,8 +15,9 @@ public class OrderDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public Boolean insert(OrderVo orderVo) {
-		return (sqlSession.insert("order.insert", orderVo) > 0);
+	
+	public void insert(OrderVo orderVo) {
+		sqlSession.insert("order.insert", orderVo);
 	}
 
 	public Boolean insertProduct(OrderVo orderVo) {
@@ -24,6 +26,10 @@ public class OrderDao {
 	
 	public void insertPayment(OrderVo orderVo) {
 		sqlSession.insert("order.insertPayment", orderVo);
+	}
+	
+	public void quantityChange(OrderVo orderVo) {
+		sqlSession.update("order.quantityChange", orderVo);
 	}
 
 	public List selectList(OrderVo orderVo) {
@@ -48,6 +54,13 @@ public class OrderDao {
 	public boolean quantityCheck(OrderVo orderVo) {
 		return sqlSession.update("order.quantityCheck", orderVo) > 0;
 	}
+
+	public boolean check(OrderVo orderVo) {
+		int check = sqlSession.selectOne("order.quantityCheck", orderVo);
+		return check > 0;
+	}
+
+	
 
 	
 	

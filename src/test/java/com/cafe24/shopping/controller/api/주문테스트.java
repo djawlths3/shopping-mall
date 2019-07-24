@@ -54,27 +54,29 @@ public class 주문테스트 {
 		vo.setName("엄기윤");
 		vo.setPassword("1234");
 		vo.setPhone("01095590484");
-
-		vo.setQuantity(2);
-		vo.setSize("m");
-		vo.setColor("red");
+		vo.setProductName("꽃그림반팔");
+		vo.setQuantity(12);
+		vo.setSize("M");
+		vo.setColor("white");
 		vo.setPrice(35000);
 		vo.setProductNo(1);
 
 		
 		HashMap<String, Object> mp = new HashMap<>();
-		mp.put("quantity", 1);
-		mp.put("size", "M");
-		mp.put("color", "blue");
+		mp.put("quantity", 10);
+		mp.put("size", "S");
+		mp.put("color", "white");
 		mp.put("price", 1000);
 		mp.put("productNo", 1);
+		mp.put("productName", "꽃그림반팔");
 		bascketList.add(mp);
 		HashMap<String, Object> mp2 = new HashMap<>();
-		mp2.put("quantity", 10);
-		mp2.put("size", "L");
-		mp2.put("color", "black");
+		mp2.put("quantity", 65);
+		mp2.put("size", "S");
+		mp2.put("color", "red");
 		mp2.put("price", 500);
-		mp2.put("productNo", 1);
+		mp.put("productName", "꽃그림반팔");
+		mp2.put("productNo", 4);
 		bascketList.add(mp2);
 		
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -94,7 +96,7 @@ public class 주문테스트 {
 		resultAction.andExpect(status().isOk()).andDo(print());		
 	}
 	
-	@Ignore
+	
 	@Test
 	public void 테스트02_상품장바구니주문() throws Exception {
 		//회원 상품 주문 
@@ -102,16 +104,18 @@ public class 주문테스트 {
 		vo.setBascketProduct(bascketList);
 		ResultActions resultAction = mockMvc.perform(post("/api/order/addBasket").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
+		/*
 		//비회원 상품 주문 
 		setup();
 		vo.setId(null);
 		vo.setBascketProduct(bascketList);
 		resultAction = mockMvc.perform(post("/api/order/addBasket").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
+		*/
 	}
 	
 	
-	
+	@Ignore
 	@Test
 	public void 테스트03_주문조회() throws Exception {
 		//회원 주문 검색		
@@ -139,7 +143,5 @@ public class 주문테스트 {
 		vo.setPaymentComplete("Y");
 		ResultActions resultAction = mockMvc.perform(post("/api/order/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
-		
-		
 	}
 }

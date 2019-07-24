@@ -45,6 +45,7 @@
 		#{size},
 		#{color},
 		#{price},
+		#{productName},
 		#{orderNo},
 		#{productNo}
 		)
@@ -144,9 +145,13 @@
 		and order_no = #{orderNo}
 	</update>
 	
-	<!-- 수량확인 수정 
-	<update id="quantityCheck" parameterType="ordervo">
-
+	<select id="quantityCheck" parameterType="ordervo" resultType="integer">
+		select count(*) from stock where size = #{size} and color = #{color} and product_no = #{productNo} and (quantity - #{quantity}) >= 0
+	</select>
+	
+	<!-- 실 수량 빼기 -->
+	<update id="quantityChange" parameterType="ordervo">
+		update stock set quantity = quantity - #{quantity}  where size = #{size} and color = #{color} and product_no = #{productNo}
 	</update>
-	-->
+	
 </mapper>

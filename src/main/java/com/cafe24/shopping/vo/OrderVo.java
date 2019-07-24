@@ -16,9 +16,10 @@ public class OrderVo {
 	private String completeDate; // 완료일
 	
 	private String deliveryNo; // 송장번호
-	
+	private long bascketNo; // 장바구니 번호
 	private int stockNo; // 상품번호
 	private int quantity; // 수량
+	private String productName; // 상품이름
 	private String size; // 사이즈
 	private String color; // 색상
 	private int price; // 가격
@@ -30,6 +31,20 @@ public class OrderVo {
 	private String paymentComplete = "N"; //결제유무
 	private String paymentMethod = "무통장입금";// 결제 방법
 	
+	
+	
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public long getBascketNo() {
+		return bascketNo;
+	}
+	public void setBascketNo(int bascketNo) {
+		this.bascketNo = bascketNo;
+	}
 	public int getPaymentNo() {
 		return paymentNo;
 	}

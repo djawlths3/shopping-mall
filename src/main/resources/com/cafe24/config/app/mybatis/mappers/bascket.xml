@@ -76,10 +76,10 @@
 	</delete>
 	
 	<!-- 장바구니 전체 삭제-->
-	<delete id="deleteAll" parameterType="bascketvo">
+	<delete id="deleteAll" parameterType="int">
 		<![CDATA[
 			delete from bascket
-		 	where bascket_no = #{bascketNo}
+		 	where bascket_no = #{no}
 		 ]]>
 	</delete>
 </mapper>
