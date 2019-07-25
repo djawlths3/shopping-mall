@@ -154,4 +154,13 @@
 		update stock set quantity = quantity - #{quantity}  where size = #{size} and color = #{color} and product_no = #{productNo}
 	</update>
 	
+	<!-- 운영자 주문 수정 -->
+	<update id="update" parameterType="ordervo">
+		update orders a, payment b 
+		set a.status = #{status}, 
+		a.delivery_no=#{deliveryNo}, 
+		b.payment_complete = #{paymentComplete} 
+		where a.order_no = b.order_no and a.order_no = #{orderNo}
+	</update>
+	
 </mapper>

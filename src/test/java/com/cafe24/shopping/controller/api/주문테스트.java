@@ -96,7 +96,7 @@ public class 주문테스트 {
 		resultAction.andExpect(status().isOk()).andDo(print());		
 	}
 	
-	
+	@Ignore
 	@Test
 	public void 테스트02_상품장바구니주문() throws Exception {
 		//회원 상품 주문 
@@ -104,14 +104,14 @@ public class 주문테스트 {
 		vo.setBascketProduct(bascketList);
 		ResultActions resultAction = mockMvc.perform(post("/api/order/addBasket").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
-		/*
+
 		//비회원 상품 주문 
 		setup();
 		vo.setId(null);
 		vo.setBascketProduct(bascketList);
 		resultAction = mockMvc.perform(post("/api/order/addBasket").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
-		*/
+		
 	}
 	
 	
@@ -129,15 +129,17 @@ public class 주문테스트 {
 		resultAction = mockMvc.perform(post("/api/order/search").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 		
-		//전체 주문 보기 test 미정
+		//전체 주문 보기
 		resultAction = mockMvc.perform(post("/api/order/searchAll").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 
 	}
-	@Ignore
+	
+	
 	@Test
 	public void 테스트04_주문수정운영자() throws Exception {
 		//주문 수정
+		vo.setOrderNo("ORD-190724-00001");
 		vo.setStatus("배송준비중");
 		vo.setDeliveryNo("123456789");
 		vo.setPaymentComplete("Y");
