@@ -1,7 +1,7 @@
 package com.cafe24.shopping.controller.api;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -115,27 +115,27 @@ public class 주문테스트 {
 	}
 	
 	
-	@Ignore
+
 	@Test
 	public void 테스트03_주문조회() throws Exception {
 		//회원 주문 검색		
-		ResultActions resultAction = mockMvc.perform(post("/api/order/search").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(get("/api/order/search").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 		
 		//비회원 주문 검색	
 		setup();
 		vo.setId(null);
 		vo.setOrderNo("ORD-190723-00002");
-		resultAction = mockMvc.perform(post("/api/order/search").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction = mockMvc.perform(get("/api/order/search").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 		
 		//전체 주문 보기
-		resultAction = mockMvc.perform(post("/api/order/searchAll").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction = mockMvc.perform(get("/api/order/searchAll").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 
 	}
 	
-	
+	@Ignore
 	@Test
 	public void 테스트04_주문수정운영자() throws Exception {
 		//주문 수정
@@ -143,7 +143,7 @@ public class 주문테스트 {
 		vo.setStatus("배송준비중");
 		vo.setDeliveryNo("123456789");
 		vo.setPaymentComplete("Y");
-		ResultActions resultAction = mockMvc.perform(post("/api/order/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(put("/api/order/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 	}
 }

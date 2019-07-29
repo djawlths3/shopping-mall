@@ -2,7 +2,7 @@ package com.cafe24.shopping.controller.api;
 
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -60,7 +60,7 @@ public class 장바구니테스트 {
 	@Ignore
 	@Test
 	public void 테스트02_장바구니조회() throws Exception {
-		ResultActions resultAction = mockMvc.perform(post("/api/bascket/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(get("/api/bascket/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 	}
 	
@@ -69,14 +69,14 @@ public class 장바구니테스트 {
 	public void 테스트03_장바구니수정() throws Exception {
 		vo.setQuantity(13);
 		vo.setBascketNo(2);
-		ResultActions resultAction = mockMvc.perform(post("/api/bascket/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(put("/api/bascket/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 	}
 	@Ignore
 	@Test
 	public void 테스트04_장바구니삭제() throws Exception {
 		vo.setBascketNo(2);
-		ResultActions resultAction = mockMvc.perform(post("/api/bascket/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(delete("/api/bascket/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 	}
 	

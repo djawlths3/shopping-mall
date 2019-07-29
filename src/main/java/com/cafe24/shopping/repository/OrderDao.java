@@ -60,6 +60,10 @@ public class OrderDao {
 		return check > 0;
 	}
 
+	public Boolean delete(OrderVo orderVo) {
+		return sqlSession.delete("order.delete", orderVo) > 0;
+	}
+
 	
 
 	

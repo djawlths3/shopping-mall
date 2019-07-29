@@ -73,6 +73,12 @@ public class OrderService {
 		return vo;
 	}
 
+
+	public Boolean orderRemove(OrderVo orderVo) {
+		Boolean tf = orderDao.delete(orderVo);
+		return tf;
+	}
+
 	
 	
 }

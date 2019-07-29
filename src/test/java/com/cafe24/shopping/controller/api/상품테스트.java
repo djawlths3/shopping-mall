@@ -1,7 +1,7 @@
 package com.cafe24.shopping.controller.api;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -76,26 +76,26 @@ public class 상품테스트 {
 	@Test
 	public void 테스트03_상품리스트() throws Exception {
 		// 상품 리스트
-		ResultActions resultAction = mockMvc.perform(post("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(get("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 		
 		// 상품정렬
 		vo.setProductName(null);
 		vo.setProductSort("priceD");
-		resultAction = mockMvc.perform(post("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction = mockMvc.perform(get("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 		
 		// 상품 이름 검색
 		vo.setProductName("꽃");
-		resultAction = mockMvc.perform(post("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction = mockMvc.perform(get("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 		
 		// 카테고리 별 검색
 		vo.setCategoryNo(1);
-		resultAction = mockMvc.perform(post("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultAction = mockMvc.perform(get("/api/product/list").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 		
@@ -105,7 +105,7 @@ public class 상품테스트 {
 	@Test
 	public void 테스트04_상품상세정보() throws Exception {	
 		vo.setProductNo(1);
-		ResultActions resultAction = mockMvc.perform(post("/api/product/detail").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(get("/api/product/detail").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 		
@@ -117,7 +117,7 @@ public class 상품테스트 {
 		vo.setProductNo(1);
 		vo.setColor("blue");
 		vo.setProductName("꽃그림반팔");
-		ResultActions resultAction = mockMvc.perform(post("/api/product/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(put("/api/product/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 		
@@ -127,7 +127,7 @@ public class 상품테스트 {
 	@Test
 	public void 테스트06_상품삭제() throws Exception {	
 		vo.setProductNo(7);
-		ResultActions resultAction = mockMvc.perform(post("/api/product/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(delete("/api/product/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 		
@@ -152,7 +152,7 @@ public class 상품테스트 {
 		vo.setQuantity(99);
 		vo.setColor("black");
 		vo.setSize("L");
-		ResultActions resultAction = mockMvc.perform(post("/api/product/stock/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(put("/api/product/stock/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 	}
@@ -161,7 +161,7 @@ public class 상품테스트 {
 	@Test
 	public void 테스트09_재고삭제() throws Exception {	
 		vo.setStockNo(5);
-		ResultActions resultAction = mockMvc.perform(post("/api/product/stock/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(delete("/api/product/stock/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 	}
@@ -169,7 +169,7 @@ public class 상품테스트 {
 	@Test
 	public void 테스트10_상품중복검사() throws Exception {	
 		vo.setProductName("간디작살안경");
-		ResultActions resultAction = mockMvc.perform(post("/api/product/overlap").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(get("/api/product/overlap").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 	}
@@ -179,7 +179,7 @@ public class 상품테스트 {
 		vo.setProductNo(1);
 		vo.setColor("black");
 		vo.setSize("L");
-		ResultActions resultAction = mockMvc.perform(post("/api/product/stock/overlap").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(get("/api/product/stock/overlap").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
 	}

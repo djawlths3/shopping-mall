@@ -1,7 +1,7 @@
 package com.cafe24.shopping.controller.api;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -87,7 +87,7 @@ public class 카테고리테스트 {
 	@Test
 	public void 테스트99_카테고리삭제() throws Exception {	
 		vo.setCategoryNo(18);
-		ResultActions resultAction = mockMvc.perform(post("/api/category/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(delete("/api/category/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.data",is("삭제")));		
 	}
@@ -98,7 +98,7 @@ public class 카테고리테스트 {
 	public void 카테고리수정(ProductVo vo) throws Exception {	
 		vo.setCategoryNo(20);
 		vo.setCategoryName("청바지");
-		ResultActions resultAction = mockMvc.perform(post("/api/category/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(put("/api/category/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));				
 	}
