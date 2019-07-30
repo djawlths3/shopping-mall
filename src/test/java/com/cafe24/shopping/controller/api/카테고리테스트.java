@@ -49,27 +49,17 @@ public class 카테고리테스트 {
 	
 	@Before	
 	public void setup() {
-		vo.setCategoryName("반");
-		vo.setColor("red");
-		vo.setPrice(7000);
-		vo.setProductEtc("상품입니다.아주이뻐요");
-		vo.setProductName("모시반팔");
-		vo.setQuantity(10);
-		vo.setSize("M");
-		// 상품 이미지 
-		// vo.setImgEtc("img입니다");
-		// vo.setPath("D:/img");
-		// vo.setSortNo(1);
+		vo.setCategoryName("신발");
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
-	@Ignore
+	
 	@Test
 	public void 테스트01_카테고리전체삭제() throws Exception {
-		mockMvc.perform(post("/api/category/removeAll").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+		mockMvc.perform(delete("/api/category/removeAll").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
 	
-	@Ignore
+	
 	@Test
 	public void 테스트02_카테고리등록수정() throws Exception {	
 		ResultActions resultAction = mockMvc.perform(post("/api/category/raise").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
@@ -86,17 +76,16 @@ public class 카테고리테스트 {
 	@Ignore
 	@Test
 	public void 테스트99_카테고리삭제() throws Exception {	
-		vo.setCategoryNo(18);
+		vo.setCategoryNo(3);
 		ResultActions resultAction = mockMvc.perform(delete("/api/category/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.data",is("삭제")));		
 	}
 	
 	
-	@Ignore
-	@Test
+	
 	public void 카테고리수정(ProductVo vo) throws Exception {	
-		vo.setCategoryNo(20);
+		vo.setCategoryNo(1);
 		vo.setCategoryName("청바지");
 		ResultActions resultAction = mockMvc.perform(put("/api/category/modify").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())

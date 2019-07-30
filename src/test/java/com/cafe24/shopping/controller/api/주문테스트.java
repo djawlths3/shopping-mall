@@ -59,7 +59,7 @@ public class 주문테스트 {
 		vo.setSize("M");
 		vo.setColor("white");
 		vo.setPrice(35000);
-		vo.setProductNo(1);
+		vo.setProductNo(5);
 
 		
 		HashMap<String, Object> mp = new HashMap<>();
@@ -67,7 +67,7 @@ public class 주문테스트 {
 		mp.put("size", "S");
 		mp.put("color", "white");
 		mp.put("price", 1000);
-		mp.put("productNo", 1);
+		mp.put("productNo", 4);
 		mp.put("productName", "꽃그림반팔");
 		bascketList.add(mp);
 		HashMap<String, Object> mp2 = new HashMap<>();
@@ -76,13 +76,13 @@ public class 주문테스트 {
 		mp2.put("color", "red");
 		mp2.put("price", 500);
 		mp.put("productName", "꽃그림반팔");
-		mp2.put("productNo", 4);
+		mp2.put("productNo", 5);
 		bascketList.add(mp2);
 		
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
-	@Ignore
+
 	@Test
 	public void 테스트01_상품단품주문() throws Exception {
 		//회원 상품 주문 
@@ -96,7 +96,7 @@ public class 주문테스트 {
 		resultAction.andExpect(status().isOk()).andDo(print());		
 	}
 	
-	@Ignore
+
 	@Test
 	public void 테스트02_상품장바구니주문() throws Exception {
 		//회원 상품 주문 
@@ -125,7 +125,7 @@ public class 주문테스트 {
 		//비회원 주문 검색	
 		setup();
 		vo.setId(null);
-		vo.setOrderNo("ORD-190723-00002");
+		vo.setOrderNo("ORD-190730-00001");
 		resultAction = mockMvc.perform(get("/api/order/search").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print());
 		
@@ -135,11 +135,11 @@ public class 주문테스트 {
 
 	}
 	
-	@Ignore
+
 	@Test
 	public void 테스트04_주문수정운영자() throws Exception {
 		//주문 수정
-		vo.setOrderNo("ORD-190724-00001");
+		vo.setOrderNo("ORD-190730-00001");
 		vo.setStatus("배송준비중");
 		vo.setDeliveryNo("123456789");
 		vo.setPaymentComplete("Y");

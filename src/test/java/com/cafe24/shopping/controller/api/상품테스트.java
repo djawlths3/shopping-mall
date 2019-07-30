@@ -55,7 +55,7 @@ public class 상품테스트 {
 		vo.setQuantity(999);
 		vo.setColor("골드");
 		vo.setSize("머리56호");
-		vo.setCategoryNo(2);
+		vo.setCategoryNo(7);
 		// 상품 이미지 
 		// vo.setImgEtc("img입니다");
 		// vo.setPath("D:/img");
@@ -72,6 +72,7 @@ public class 상품테스트 {
 		.andReturn();	
 		
 	}
+	
 	
 	@Test
 	public void 테스트03_상품리스트() throws Exception {
@@ -126,7 +127,7 @@ public class 상품테스트 {
 	
 	@Test
 	public void 테스트06_상품삭제() throws Exception {	
-		vo.setProductNo(7);
+		vo.setProductNo(1);
 		ResultActions resultAction = mockMvc.perform(delete("/api/product/remove").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("success")));	
@@ -136,7 +137,7 @@ public class 상품테스트 {
 	
 	@Test
 	public void 테스트07_재고추가() throws Exception {	
-		vo.setProductNo(1);
+		vo.setProductNo(5);
 		vo.setQuantity(105);
 		vo.setColor("green");
 		vo.setSize("M");

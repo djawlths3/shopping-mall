@@ -64,7 +64,7 @@ public class 유저테스트 {
 
 	@Test
 	public void 테스트01_유저디비삭제() throws Exception {
-		mockMvc.perform(post("/api/user/removeAll").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+		mockMvc.perform(delete("/api/user/removeAll").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
 	
 	
@@ -73,7 +73,7 @@ public class 유저테스트 {
 	public void 테스트02_회원가입테스트() throws Exception {	
 		//잘못된 아이디(길이부족)
 		vo.setId("a");
-		ResultActions resultAction = mockMvc.perform(get("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		ResultActions resultAction = mockMvc.perform(post("/api/user/join").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultAction.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result",is("fail")));
 		//잘못된 아이디(특수문자)
@@ -133,7 +133,7 @@ public class 유저테스트 {
 
 	}
 	
-
+	
 	@Test
 	public void 테스트03_아이디중복체크() throws Exception{
 		//중복되는 아이디	
