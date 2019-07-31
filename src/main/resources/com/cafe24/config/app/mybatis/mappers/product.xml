@@ -27,7 +27,7 @@
 		<if test="productName != null">
 			and a.product_name like CONCAT('%',#{productName},'%')
 		</if>
-		<if test="categoryNo != null">
+		<if test="categoryNo != null or categoryNo != 0">
 			and a.category_no = #{categoryNo}
 		</if>
 		<if test="productSort == 'priceD'">
@@ -69,7 +69,7 @@
 		<if test="productDate != null">
 			, a.product_date = #{productDate}
 		</if>
-		<if test="categoryNo != null">
+		<if test="categoryNo != 0">
 			, a.category_no = #{categoryNo}
 		</if>
 		where a.product_no = #{productNo}

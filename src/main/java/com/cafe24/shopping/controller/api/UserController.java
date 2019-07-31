@@ -49,7 +49,7 @@ public class UserController {
 		return JSONResult.success(vo);
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ApiOperation(value = "로그인")
 	public JSONResult login(@RequestBody UserVo userVo) {
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -66,7 +66,7 @@ public class UserController {
 		return JSONResult.success(vo);
 	}
 
-	@RequestMapping(value = "/findId", method = RequestMethod.GET)
+	@RequestMapping(value = "/findId", method = RequestMethod.POST)
 	@ApiOperation(value = "아이디찾기")
 	public JSONResult findId(@RequestBody UserVo userVo) {
 		UserVo vo = userService.findId(userVo);
@@ -76,14 +76,14 @@ public class UserController {
 		return JSONResult.success(vo);
 	}
 
-	@RequestMapping(value = "/findPw", method = RequestMethod.GET)
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
 	@ApiOperation(value = "비밀번호 찾기")
 	public JSONResult findPw(@RequestBody UserVo userVo) {
 		UserVo vo = userService.findPw(userVo);
 		return JSONResult.success(vo);
 	}
 	
-	@RequestMapping(value = "/certification", method = RequestMethod.GET)
+	@RequestMapping(value = "/certification", method = RequestMethod.POST)
 	@ApiOperation(value = "비밀번호 인증키 인증")
 	public JSONResult certification(@RequestBody UserVo userVo) {
 		UserVo vo = userService.certification(userVo);
@@ -106,9 +106,9 @@ public class UserController {
 		return JSONResult.fail("실패");
 	}
 
-	@RequestMapping(value = "/checkId", method = RequestMethod.GET)
+	@RequestMapping(value = "/checkId", method = RequestMethod.POST)
 	@ApiOperation(value = "아이디 중복검사")
-	public JSONResult checkId(@RequestBody @Valid UserVo userVo) {
+	public JSONResult checkId(@RequestBody UserVo userVo) {
 		if (userService.checkId(userVo)) {
 			return JSONResult.success("사용가능한 아이디 입니다.");
 		}

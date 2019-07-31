@@ -71,7 +71,7 @@
 	<delete id="delete" parameterType="bascketvo">
 		<![CDATA[
 			delete from bascket_manage
-		 	where stock_no = #{stockNo}
+		 	where stock_no = #{stockNo} and bascket_no = #{bascketNo}
 		 ]]>
 	</delete>
 	

@@ -37,14 +37,14 @@ public class ProductController {
 		return JSONResult.success(vo);
 	}
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
 	@ApiOperation(value = "상품 리스트(전체,검색)")
 	public JSONResult productList(@RequestBody ProductVo productVo) {
 		List<ProductVo> li = productService.productList(productVo);
 		return JSONResult.success(li);
 	}
 
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	@RequestMapping(value = "/detail", method = RequestMethod.POST)
 	@ApiOperation(value = "상품 상세정보")
 	public JSONResult productDetail(@RequestBody ProductVo productVo) {
 		List<ProductVo> li = productService.productDetail(productVo);
@@ -86,14 +86,14 @@ public class ProductController {
 		return JSONResult.success(tf);
 	}
 	
-	@RequestMapping(value = "/overlap", method = RequestMethod.GET)
+	@RequestMapping(value = "/overlap", method = RequestMethod.POST)
 	@ApiOperation(value = "관리자 상품 중복검사")
 	public JSONResult productOverlap(@RequestBody ProductVo productVo) {
 		Boolean tf = productService.productOverlap(productVo);
 		return JSONResult.success(tf);
 	}
 	
-	@RequestMapping(value = "/stock/overlap", method = RequestMethod.GET)
+	@RequestMapping(value = "/stock/overlap", method = RequestMethod.POST)
 	@ApiOperation(value = "관리자 상품 옵션 중복검사")
 	public JSONResult stockOverlap(@RequestBody ProductVo productVo) {
 		Boolean tf = productService.stockOverlap(productVo);

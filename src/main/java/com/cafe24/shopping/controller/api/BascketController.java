@@ -32,7 +32,7 @@ public class BascketController {
 		return JSONResult.success(vo);
 	}
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
 	@ApiOperation(value = "장바구니 상품 목록")
 	public JSONResult bascketList(@RequestBody BascketVo bascketVo) {
 		List<BascketVo> li = bascketService.bascketList(bascketVo);
