@@ -40,5 +40,26 @@
 |  33  | 장바구니 상품 삭제              | /api/bascket/remove        | 7/26 |   30m    |      O      | 회원 비회원 구분                                             |
 |  34  | 장바구니 삭제                   | /api/bascket/removeAll     | 7/26 |   30m    |      O      | 회원 비회원 구분                                             |
 |      |                                 |                            |      |          |             |                                                              |
-|      |                                 |                            |      |          |             |                                                              |
+|      |                                 |                            |      |          |             |                            
 # TDD                                            
+
+1. 유저테스트
+
+![](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%9C%A0%EC%A0%80%ED%85%8C%EC%8A%A4%ED%8A%B8.PNG?raw=true)
+
+2. 카테고리 테스트
+
+   ![](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%ED%85%8C%EC%8A%A4%ED%8A%B8.PNG?raw=true)
+
+3. 상품 테스트
+
+   ![](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%83%81%ED%92%88%ED%85%8C%EC%8A%A4%ED%8A%B8.PNG?raw=true)
+
+4. 장바구니 테스트
+
+   ![](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%9E%A5%EB%B0%94%EA%B5%AC%EB%8B%88%ED%85%8C%EC%8A%A4%ED%8A%B8.PNG?raw=true)
+
+5. 주문 테스트
+
+   ![](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%A3%BC%EB%AC%B8%ED%85%8C%EC%8A%A4%ED%8A%B8.PNG?raw=true)
+
