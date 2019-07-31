@@ -45,7 +45,7 @@
 
 1. 유저테스트
 
-![](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%9C%A0%EC%A0%80%ED%85%8C%EC%8A%A4%ED%8A%B8.PNG?raw=true)
+   ![](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%9C%A0%EC%A0%80%ED%85%8C%EC%8A%A4%ED%8A%B8.PNG?raw=true)
 
 2. 카테고리 테스트
 
@@ -63,3 +63,4 @@
 
    ![](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%A3%BC%EB%AC%B8%ED%85%8C%EC%8A%A4%ED%8A%B8.PNG?raw=true)
 
+[TDD 소스](https://github.com/djawlths3/shopping-mall/tree/master/src/test/java/com/cafe24/shopping/controller/api)
