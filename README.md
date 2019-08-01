@@ -87,7 +87,7 @@
 
 ![주문](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EC%A3%BC%EB%AC%B8%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC.PNG?raw=true)
 
-[주문 결과물](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/%EA%B2%B0%EA%B3%BC%EB%AC%BC/%EC%A3%BC%EB%AC%B8%EC%84%B1%EA%B3%BC%EB%AC%BC.md)
+주문 결과물
 
 ## 고려한 점
 
