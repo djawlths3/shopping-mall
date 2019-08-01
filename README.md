@@ -135,7 +135,9 @@
 
    재고는 주문 완료시 동시에 수정. 주문 도중이라도 재고가 없다면 실패 . 트랜잭션을 이용하여 원자성 보장
 
+## EXERD
 
+ ![exerd](https://github.com/djawlths3/shopping-mall/blob/master/doc/img/exerd.png?raw=true)
 
 
 
